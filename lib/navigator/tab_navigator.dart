@@ -14,7 +14,7 @@ class _TabNavigatorState extends State<TabNavigator> {
   final _defaultColor = Colors.grey;
   final _activeColor = Colors.blue;
 
-  int _currentIndex=0;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,18 @@ class _TabNavigatorState extends State<TabNavigator> {
           TravelPage(),
           MinePage(),
         ],
+        onPageChanged: (i) {
+          setState(() {
+            _currentIndex = i;
+          });
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (index){
+        onTap: (index) {
           _pageViewController.jumpToPage(index);
           setState(() {
-            _currentIndex= index;
+            _currentIndex = index;
           });
         },
         type: BottomNavigationBarType.fixed,
@@ -52,7 +57,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                   style: TextStyle(
                       fontSize: 14,
                       color:
-                          _currentIndex != 1 ? _defaultColor : _activeColor))),
+                          _currentIndex != 0 ? _defaultColor : _activeColor))),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.search,
@@ -66,7 +71,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                   style: TextStyle(
                       fontSize: 14,
                       color:
-                          _currentIndex != 2 ? _defaultColor : _activeColor))),
+                          _currentIndex != 1 ? _defaultColor : _activeColor))),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.camera,
@@ -80,7 +85,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                   style: TextStyle(
                       fontSize: 14,
                       color:
-                          _currentIndex != 3 ? _defaultColor : _activeColor))),
+                          _currentIndex != 2 ? _defaultColor : _activeColor))),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_circle,
@@ -94,7 +99,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                   style: TextStyle(
                       fontSize: 14,
                       color:
-                          _currentIndex != 4 ? _defaultColor : _activeColor))),
+                          _currentIndex != 3 ? _defaultColor : _activeColor))),
         ],
       ),
     );
