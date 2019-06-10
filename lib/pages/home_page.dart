@@ -4,6 +4,8 @@ import 'package:flutter_xiecheng/dao/home_dao.dart';
 import 'dart:convert';
 
 import 'package:flutter_xiecheng/model/common_model.dart';
+import 'package:flutter_xiecheng/model/grid_nav_model.dart';
+import 'package:flutter_xiecheng/widgets/grid_nav.dart';
 import 'package:flutter_xiecheng/widgets/local_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
@@ -25,6 +27,8 @@ class _HomePageState extends State<HomePage> {
   double appBarAlpha = 0;
   var resultString = '';
   List<CommonModel> localNavList;
+
+  GridNavModel gridNavModel;
 
   @override
   void initState() {
@@ -62,14 +66,21 @@ class _HomePageState extends State<HomePage> {
                       pagination: SwiperPagination(),
                     ),
                   ),
-                 Padding(
-                   child:  LocalNav(localNavList: localNavList,),
-                   padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                 ),
+                  Padding(
+                    child: LocalNav(
+                      localNavList: localNavList,
+                    ),
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                  ),
+                  Padding(
+                    child: GridNav(
+                      gridNavModel: gridNavModel,
+                    ),
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                  ),
                   Container(
                     height: 800,
-                    child:
-                    ListTile(
+                    child: ListTile(
                       title: Text(resultString),
                     ),
                   )
@@ -97,6 +108,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         resultString = json.encode(homeModel);
         localNavList = homeModel.localNavList;
+        gridNavModel = homeModel.gridNav;
       });
     } catch (e) {
       setState(() {
