@@ -7,6 +7,8 @@ import 'package:flutter_xiecheng/model/common_model.dart';
 import 'package:flutter_xiecheng/model/grid_nav_model.dart';
 import 'package:flutter_xiecheng/widgets/grid_nav.dart';
 import 'package:flutter_xiecheng/widgets/local_nav.dart';
+import 'package:flutter_xiecheng/widgets/sales_box.dart';
+import 'package:flutter_xiecheng/widgets/sub_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -27,8 +29,9 @@ class _HomePageState extends State<HomePage> {
   double appBarAlpha = 0;
   var resultString = '';
   List<CommonModel> localNavList;
-
+  var subNavList;
   GridNavModel gridNavModel;
+  var salesBox;
 
   @override
   void initState() {
@@ -78,10 +81,20 @@ class _HomePageState extends State<HomePage> {
                     ),
                     padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
                   ),
+                  Padding(
+                    child: SubNav(subNavList: subNavList),
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                  ),
+                  Padding(
+                    child: SalesBox(
+                      salesBox: salesBox,
+                    ),
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                  ),
                   Container(
                     height: 800,
                     child: ListTile(
-                      title: Text(resultString),
+                      title: Text('test'),
                     ),
                   )
                 ],
@@ -109,6 +122,8 @@ class _HomePageState extends State<HomePage> {
         resultString = json.encode(homeModel);
         localNavList = homeModel.localNavList;
         gridNavModel = homeModel.gridNav;
+        subNavList = homeModel.subNavList;
+        salesBox = homeModel.salesBox;
       });
     } catch (e) {
       setState(() {
