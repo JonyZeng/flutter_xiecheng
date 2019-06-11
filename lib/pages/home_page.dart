@@ -42,81 +42,103 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return LoadingContainer(
-        child: Scaffold(
-            body: MediaQuery.removePadding(
+        child: Stack(
+          children: <Widget>[
+            MediaQuery.removePadding(
                 removeTop: true,
                 context: context,
                 child: RefreshIndicator(
-                    child: NotificationListener(
-                      onNotification: (scrollNotificationListener) {
-                        if (scrollNotificationListener
-                                is ScrollUpdateNotification &&
-                            scrollNotificationListener.depth == 0) {
-                          _onScroll(scrollNotificationListener.metrics.pixels);
-                        }
-                      },
-                      child: ListView(
-                        children: <Widget>[
-                          Container(
-                            height: 160,
-                            child: Swiper(
-                              itemCount: bannerList?.length,
-                              autoplay: true,
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      CommonModel model = bannerList[index];
-                                      return WebView(
-                                        url: model.url,
-                                        title: model.title,
-                                        hideAppBar: model.hideAppBar,
-                                      );
-                                    }));
-                                  },
-                                  child: Image.network(
-                                    bannerList[index].icon,
-                                    fit: BoxFit.fill,
-                                  ),
-                                );
-                              },
-                              pagination: SwiperPagination(),
-                            ),
-                          ),
-                          Padding(
-                            child: LocalNav(
-                              localNavList: localNavList,
-                            ),
-                            padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                          ),
-                          Padding(
-                            child: GridNav(
-                              gridNavModel: gridNavModel,
-                            ),
-                            padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                          ),
-                          Padding(
-                            child: SubNav(subNavList: subNavList),
-                            padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                          ),
-                          Padding(
-                            child: SalesBox(
-                              salesBox: salesBox,
-                            ),
-                            padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                          ),
-                          Container(
-                            height: 800,
-                            child: ListTile(
-                              title: Text('test'),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    onRefresh: _handleRefresh))),
+                  onRefresh: _handleRefresh,
+                  child: NotificationListener(
+                    onNotification: (scrollNotificationListener) {
+                      if (scrollNotificationListener
+                              is ScrollUpdateNotification &&
+                          scrollNotificationListener.depth == 0) {
+                        _onScroll(scrollNotificationListener.metrics.pixels);
+                      }
+                    },
+                    child: _listView,
+                  ),
+                )),
+            _appBar,
+          ],
+        ),
         isLoading: _loading);
+  }
+
+  Widget get _appBar {
+    return Opacity(
+      opacity: appBarAlpha,
+      child: Container(
+        height: 80,
+        decoration: BoxDecoration(color: Colors.blue),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text('首页'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget get _listView {
+    return ListView(
+      children: <Widget>[
+        _bannerView,
+        Padding(
+          child: LocalNav(
+            localNavList: localNavList,
+          ),
+          padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+        ),
+        Padding(
+          child: GridNav(
+            gridNavModel: gridNavModel,
+          ),
+          padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+        ),
+        Padding(
+          child: SubNav(subNavList: subNavList),
+          padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+        ),
+        Padding(
+          child: SalesBox(
+            salesBox: salesBox,
+          ),
+          padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+        ),
+      ],
+    );
+  }
+
+  Widget get _bannerView {
+    return Container(
+      height: 160,
+      child: Swiper(
+        itemCount: bannerList?.length,
+        autoplay: true,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                CommonModel model = bannerList[index];
+                return WebView(
+                  url: model.url,
+                  title: model.title,
+                  hideAppBar: model.hideAppBar,
+                );
+              }));
+            },
+            child: Image.network(
+              bannerList[index].icon,
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+        pagination: SwiperPagination(),
+      ),
+    );
   }
 
   void _onScroll(offset) {
