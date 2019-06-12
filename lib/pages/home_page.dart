@@ -7,6 +7,7 @@ import 'dart:convert';
 
 import 'package:flutter_xiecheng/model/common_model.dart';
 import 'package:flutter_xiecheng/model/grid_nav_model.dart';
+import 'package:flutter_xiecheng/pages/search_page.dart';
 import 'package:flutter_xiecheng/widgets/grid_nav.dart';
 import 'package:flutter_xiecheng/widgets/local_nav.dart';
 import 'package:flutter_xiecheng/widgets/sales_box.dart';
@@ -16,7 +17,7 @@ import 'package:flutter_xiecheng/widgets/loading_container.dart';
 import 'package:flutter_xiecheng/widgets/webview.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
-
+const DEFAULT_TEXT = '网红打卡地点 景点 酒店 美食';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                   ? SearchBarType.homeLight
                   : SearchBarType.home,
               hint: '搜索',
-              defaultText: '网红打卡地点 景点 酒店 美食',
+              defaultText: DEFAULT_TEXT,
               inputBoxClick: _jumpToSearch,
               speakClick: _jumpToSpeak,
               leftButtonClick: () {},
@@ -197,7 +198,11 @@ class _HomePageState extends State<HomePage> {
     return null;
   }
 
-  void _jumpToSearch() {}
+  void _jumpToSearch() {
+    Navigator.push(context, MaterialPageRoute(builder:(context){
+      return SearchPage(hint: DEFAULT_TEXT,);
+    }));
+  }
 
   void _jumpToSpeak() {}
 }

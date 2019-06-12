@@ -225,9 +225,9 @@ class _SearchBarState extends State<SearchBar> {
       setState(() {
         showClear = false;
       });
-      if (widget.onChanged != null) {
-        widget.onChanged(text);
-      }
+    }
+    if (widget.onChanged != null) {
+      widget.onChanged(text);
     }
   }
 
