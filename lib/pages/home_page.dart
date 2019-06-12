@@ -10,6 +10,7 @@ import 'package:flutter_xiecheng/model/grid_nav_model.dart';
 import 'package:flutter_xiecheng/widgets/grid_nav.dart';
 import 'package:flutter_xiecheng/widgets/local_nav.dart';
 import 'package:flutter_xiecheng/widgets/sales_box.dart';
+import 'package:flutter_xiecheng/widgets/search_bar.dart';
 import 'package:flutter_xiecheng/widgets/sub_nav.dart';
 import 'package:flutter_xiecheng/widgets/loading_container.dart';
 import 'package:flutter_xiecheng/widgets/webview.dart';
@@ -67,18 +68,39 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget get _appBar {
-    return Opacity(
-      opacity: appBarAlpha,
-      child: Container(
-        height: 80,
-        decoration: BoxDecoration(color: Colors.blue),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: Text('首页'),
+    return Column(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Color(0x66000000), Colors.transparent],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter)),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+            height: 100,
+            decoration: BoxDecoration(
+                color:
+                    Color.fromARGB((appBarAlpha * 255).toInt(), 255, 255, 255)),
+            child: SearchBar(
+              hideLeft: false,
+              searchBarType: appBarAlpha > 0.2
+                  ? SearchBarType.homeLight
+                  : SearchBarType.home,
+              hint: '搜索',
+              defaultText: '网红打卡地点 景点 酒店 美食',
+              inputBoxClick: _jumpToSearch,
+              speakClick: _jumpToSpeak,
+              leftButtonClick: () {},
+            ),
           ),
         ),
-      ),
+        Container(
+          height: appBarAlpha > 0.2 ? 0.5 : 0,
+          decoration: BoxDecoration(
+              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]),
+        )
+      ],
     );
   }
 
@@ -174,4 +196,8 @@ class _HomePageState extends State<HomePage> {
     }
     return null;
   }
+
+  void _jumpToSearch() {}
+
+  void _jumpToSpeak() {}
 }
