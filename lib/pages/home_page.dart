@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> {
 
   void _jumpToSearch() {
     Navigator.push(context, MaterialPageRoute(builder:(context){
-      return SearchPage(hint: DEFAULT_TEXT,);
+      return SearchPage(hint: DEFAULT_TEXT);
     }));
   }
 
