@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xiecheng/dao/search_dao.dart';
+import 'package:flutter_xiecheng/pages/speak_page.dart';
 import 'package:flutter_xiecheng/widgets/search_bar.dart';
 import 'package:flutter_xiecheng/model/search_model.dart';
 import 'package:flutter_xiecheng/widgets/webview.dart';
@@ -44,6 +45,15 @@ class _SearchPageState extends State<SearchPage> {
   final PageController _pageViewController = PageController(initialPage: 0);
   SearchModel searchModel;
   String keyword;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (widget.keyword != null) {
+      _onTextChange(widget.keyword);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +113,7 @@ class _SearchPageState extends State<SearchPage> {
               hideLeft: widget.hideLeft,
               defaultText: widget.keyword,
               hint: widget.hint,
+              speakClick: _jumpTpSpeak,
               leftButtonClick: () {
                 Navigator.pop(context);
               },
@@ -213,5 +224,10 @@ class _SearchPageState extends State<SearchPage> {
       }
     }
     return spans;
+  }
+
+  void _jumpTpSpeak() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SpeakPage()));
   }
 }
