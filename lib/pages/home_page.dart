@@ -16,6 +16,7 @@ import 'package:flutter_xiecheng/widgets/search_bar.dart';
 import 'package:flutter_xiecheng/widgets/sub_nav.dart';
 import 'package:flutter_xiecheng/widgets/loading_container.dart';
 import 'package:flutter_xiecheng/widgets/webview.dart';
+import 'package:flutter_splash_screen/flutter_splash_screen.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 const DEFAULT_TEXT = '网红打卡地点 景点 酒店 美食';
@@ -40,6 +41,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _handleRefresh();
+    Future.delayed(Duration(milliseconds: 600),(){
+      FlutterSplashScreen.hide();
+    });
   }
 
   @override
