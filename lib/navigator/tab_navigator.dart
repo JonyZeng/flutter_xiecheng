@@ -28,6 +28,7 @@ class _TabNavigatorState extends State<TabNavigator> {
           TravelPage(),
           MinePage(),
         ],
+        physics: NeverScrollableScrollPhysics(),
         onPageChanged: (i) {
           setState(() {
             _currentIndex = i;
