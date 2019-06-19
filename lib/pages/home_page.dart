@@ -9,6 +9,7 @@ import 'package:flutter_xiecheng/model/common_model.dart';
 import 'package:flutter_xiecheng/model/grid_nav_model.dart';
 import 'package:flutter_xiecheng/pages/search_page.dart';
 import 'package:flutter_xiecheng/pages/speak_page.dart';
+import 'package:flutter_xiecheng/util/navigator_util.dart';
 import 'package:flutter_xiecheng/widgets/grid_nav.dart';
 import 'package:flutter_xiecheng/widgets/local_nav.dart';
 import 'package:flutter_xiecheng/widgets/sales_box.dart';
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _handleRefresh();
-    Future.delayed(Duration(milliseconds: 600),(){
+    Future.delayed(Duration(milliseconds: 600), () {
       FlutterSplashScreen.hide();
     });
   }
@@ -150,14 +151,14 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                CommonModel model = bannerList[index];
-                return WebView(
-                  url: model.url,
-                  title: model.title,
-                  hideAppBar: model.hideAppBar,
-                );
-              }));
+              CommonModel model = bannerList[index];
+              NavigatorUtil.push(
+                  context,
+                  WebView(
+                    url: model.url,
+                    title: model.title,
+                    hideAppBar: model.hideAppBar,
+                  ));
             },
             child: Image.network(
               bannerList[index].icon,
@@ -205,14 +206,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _jumpToSearch() {
-
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return SearchPage(hint: DEFAULT_TEXT);
-    }));
+    NavigatorUtil.push(context, SearchPage(hint: DEFAULT_TEXT));
   }
 
   void _jumpToSpeak() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SpeakPage()));
+    NavigatorUtil.push(context, SpeakPage());
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_xiecheng/dao/travel_tab_dao.dart';
 import 'package:flutter_xiecheng/model/travel_model.dart';
 import 'package:flutter_xiecheng/model/travel_tab_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_xiecheng/util/navigator_util.dart';
 import 'package:flutter_xiecheng/widgets/loading_container.dart';
 import 'package:flutter_xiecheng/widgets/webview.dart';
 
@@ -85,7 +86,6 @@ class _TravelTabPageState extends State<TravelTabPage>
             widget.type, pageIndex, PAGE_SIZE)
         .then((TravelModel travelModel) {
       setState(() {
-
         List<TravelItem> items = _filterItems(travelModel.resultList);
         if (travelItems != null) {
           travelItems.addAll(items);
@@ -133,12 +133,12 @@ class _TravelItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (item.article != null && item.article.urls.length > 0) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return new WebView(
-              url: item.article.urls[0].h5Url,
-              title: '详情',
-            );
-          }));
+          NavigatorUtil.push(
+              context,
+              WebView(
+                url: item.article.urls[0].h5Url,
+                title: '详情',
+              ));
         }
       },
       child: Card(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xiecheng/pages/search_page.dart';
 import 'package:flutter_xiecheng/plugin/asr_manager.dart';
+import 'package:flutter_xiecheng/util/navigator_util.dart';
 
 class SpeakPage extends StatefulWidget {
   @override
@@ -131,12 +132,10 @@ class _SpeakPageState extends State<SpeakPage>
           speakResult = text;
         });
         Navigator.pop(context);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SearchPage(
-                      keyword: speakResult,
-                    )));
+        NavigatorUtil.push(
+            context,SearchPage(
+          keyword: speakResult,
+        ));
       }
     });
   }

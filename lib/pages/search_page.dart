@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xiecheng/dao/search_dao.dart';
 import 'package:flutter_xiecheng/pages/speak_page.dart';
+import 'package:flutter_xiecheng/util/navigator_util.dart';
 import 'package:flutter_xiecheng/widgets/search_bar.dart';
 import 'package:flutter_xiecheng/model/search_model.dart';
 import 'package:flutter_xiecheng/widgets/webview.dart';
@@ -130,12 +131,12 @@ class _SearchPageState extends State<SearchPage> {
     SearchItem item = searchModel.data[position];
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return WebView(
-            url: item.url,
-            title: '详情',
-          );
-        }));
+        NavigatorUtil.push(
+            context,
+            WebView(
+              url: item.url,
+              title: '详情',
+            ));
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -227,7 +228,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _jumpTpSpeak() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SpeakPage()));
+    NavigatorUtil.push(context, SpeakPage());
   }
 }
